@@ -10,17 +10,6 @@
 (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22)
       doom-theme 'doom-vibrant)
 
-;; ;; Function copied from `modules/lang/emacs-lisp/config.el' and modified to include my dotfiles dir
-;; (defun +azy2|emacs-lisp|init-flycheck ()
-;;   "Initialize flycheck-mode if not in emacs.d or dotfiles."
-;;   (when (and buffer-file-name
-;;              (and (not (file-in-directory-p buffer-file-name doom-emacs-dir))
-;;                  (not (file-in-directory-p buffer-file-name "/home/ben/config/dotfiles/.emacs.d"))))
-;;     (flycheck-mode +1)))
-
-;; (remove-hook! 'emacs-lisp-mode-hook #'+emacs-lisp|init-flycheck)
-;; (add-hook! 'emacs-lisp-mode-hook #'+azy2|emacs-lisp|init-flycheck)
-
 (require 'company)
 (setq company-idle-delay 0
       company-minimum-prefix-length 2)
@@ -33,9 +22,22 @@
   (require 'rtags)
   (cmake-ide-setup))
 
+(def-package! evil-magit
+  :after magit
+  :config
+  (define-key magit-mode-map (kbd doom-leader-key) nil)
+  (add-hook! 'magit-mode-hook (evil-vimish-fold-mode -1))
+  (add-hook! 'magit-mode-hook (evil-snipe-mode -1)))
+
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
       flycheck-idle-change-delay 0.5)
+
+(def-package! flycheck-pycheckers
+  :after (flycheck)
+  :config
+  (setq flycheck-pycheckers-checkers '(mypy3 pep8 flake8 pylint))
+  (add-hook! 'flycheck-mode-hook #'flycheck-pycheckers-setup))
 
 (after! smartparens
   ;; Automatically indent a block when pressing enter inside curly braces,
