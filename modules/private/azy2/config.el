@@ -7,8 +7,11 @@
 
 (load! +bindings)
 
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22)
-      doom-theme 'doom-vibrant)
+(print display-pixels-per-inch)
+(if (>= (display-pixel-width) 2560)
+    (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22))
+  (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 16)))
+(setq doom-theme 'doom-one)
 
 (require 'company)
 (setq company-idle-delay 0
