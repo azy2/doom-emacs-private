@@ -69,3 +69,17 @@
 (setq flycheck-pos-tip-timeout 60)
 
 (add-hook 'doc-view-mode-hook #'auto-revert-mode)
+
+(after! helm
+  (setq helm-split-window-inside-p t
+        helm-echo-input-in-header-line t
+        helm-display-header-line t)
+  (defun helm-hide-minibuffer-maybe ()
+    (when (with-helm-buffer helm-echo-input-in-header-line)
+      (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+        (overlay-put ov 'window (selected-window))
+        (overlay-put ov 'face
+                     (let ((bg-color (face-background 'default nil)))
+                       `(:background ,bg-color :foreground ,bg-color)))
+        (setq-local cursor-type nil))))
+  (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe))
