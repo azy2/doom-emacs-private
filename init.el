@@ -31,7 +31,7 @@
 
 (doom! :feature
        (popup            ; tame sudden yet inevitable temporary windows
-        +all             ; catch all popups that start with an asterix
+        ;; +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
       ;debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
