@@ -80,3 +80,6 @@
         helm-autoresize-min-height 20
         helm-autoresize-max-height 0)
   (helm-autoresize-mode t))
+
+(setq web-mode-engines-alist
+      '(("django" . "\\.html\\'")))
