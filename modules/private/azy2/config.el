@@ -29,7 +29,6 @@
   :after magit
   :config
   (define-key magit-mode-map (kbd doom-leader-key) nil)
-  (add-hook! 'magit-mode-hook (evil-vimish-fold-mode -1))
   (add-hook! 'magit-mode-hook (evil-snipe-mode -1)))
 
 (require 'flycheck)
@@ -77,9 +76,35 @@
   (setq helm-split-window-inside-p t
         helm-echo-input-in-header-line t
         helm-display-header-line t
-        helm-autoresize-min-height 20
+        helm-autoresize-min-height 30
         helm-autoresize-max-height 0)
   (helm-autoresize-mode t))
 
 (setq web-mode-engines-alist
       '(("django" . "\\.html\\'")))
+
+(add-hook! 'term-mode-hook 'persp-add-buffer)
+
+(after! multi-term
+  (setq-default term-bind-key-alist
+                '(("C-c C-c" . term-interrupt-subjob)
+                  ("C-c C-e" . term-send-esc)
+                  ("C-y" . term-paste)
+                  ("M-," . term-send-raw))))
+
+(after! magit
+  (defun magit-show-keybindngs-section ()
+    (magit-insert-heading "Keybindings")
+    (push (cons '(nil . "magit")
+                (lambda (kb)
+                  (cons (car kb)
+                        (replace-regexp-in-string "-" " " (upcase-initials (substring (cdr kb) 5))))))
+          which-key-replacement-alist)
+    (let ((p (which-key--process-page (which-key--create-pages-1
+                                       (which-key--get-bindings nil nil (lambda (i) (string-prefix-p "magit" (cdr i))))
+                                       (window-body-height)
+                                       (window-body-width)))))
+      (insert (car p))))
+
+  ;; (remove-hook 'magit-status-sections-hook 'azy2-magit-status-test)
+  (add-hook 'magit-status-sections-hook 'magit-show-keybindngs-section :append))
