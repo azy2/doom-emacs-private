@@ -97,6 +97,6 @@
     (magit-dispatch-popup)
     (let ((s (buffer-string)))
       (magit-popup-quit)
-      (insert s))))
+      (insert s)))
 
   (add-hook 'magit-status-sections-hook 'magit-show-keybindings-section :append))
