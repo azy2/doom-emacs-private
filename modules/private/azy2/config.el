@@ -93,18 +93,10 @@
                   ("M-," . term-send-raw))))
 
 (after! magit
-  (defun magit-show-keybindngs-section ()
-    (magit-insert-heading "Keybindings")
-    (push (cons '(nil . "magit")
-                (lambda (kb)
-                  (cons (car kb)
-                        (replace-regexp-in-string "-" " " (upcase-initials (substring (cdr kb) 5))))))
-          which-key-replacement-alist)
-    (let ((p (which-key--process-page (which-key--create-pages-1
-                                       (which-key--get-bindings nil nil (lambda (i) (string-prefix-p "magit" (cdr i))))
-                                       (window-body-height)
-                                       (window-body-width)))))
-      (insert (car p))))
+  (defun magit-show-keybindings-section ()
+    (magit-dispatch-popup)
+    (let ((s (buffer-string)))
+      (magit-popup-quit)
+      (insert s))))
 
-  ;; (remove-hook 'magit-status-sections-hook 'azy2-magit-status-test)
-  (add-hook 'magit-status-sections-hook 'magit-show-keybindngs-section :append))
+  (add-hook 'magit-status-sections-hook 'magit-show-keybindings-section :append))
