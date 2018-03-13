@@ -90,6 +90,7 @@
                 '(("C-c C-c" . term-interrupt-subjob)
                   ("C-c C-e" . term-send-esc)
                   ("C-y" . term-paste)
+                  ("M-w" . yank)
                   ("M-," . term-send-raw))))
 
 (after! magit
@@ -100,3 +101,12 @@
       (insert s)))
 
   (add-hook 'magit-status-sections-hook 'magit-show-keybindings-section :append))
+
+(evil-set-initial-state 'pdf-view-mode 'normal)
+
+(after! latex
+  (defun azy2/compile-pdf ()
+    (setq-local compilation-scroll-output t)
+    (compile (concat "pdflatex " (file-name-nondirectory buffer-file-name))))
+  (add-hook 'LaTeX-mode-hook
+    '(lambda () (add-hook 'after-save-hook 'azy2/compile-pdf nil 'local))))
