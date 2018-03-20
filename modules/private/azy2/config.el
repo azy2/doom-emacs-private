@@ -39,6 +39,8 @@
   :after (flycheck)
   :config
   (setq flycheck-pycheckers-checkers '(mypy3 pep8 flake8 pylint))
+  (setq flycheck-pycheckers-max-line-length 120)
+  (setq flycheck-pycheckers-venv-root "~/.pyenv/versions")
   (add-hook! 'flycheck-mode-hook #'flycheck-pycheckers-setup))
 
 (after! smartparens
@@ -93,14 +95,14 @@
                   ("M-w" . yank)
                   ("M-," . term-send-raw))))
 
-(after! magit
-  (defun magit-show-keybindings-section ()
-    (magit-dispatch-popup)
-    (let ((s (buffer-string)))
-      (magit-popup-quit)
-      (insert s)))
+;; (after! magit
+;;   (defun magit-show-keybindings-section ()
+;;     (magit-dispatch-popup)
+;;     (let ((s (buffer-string)))
+;;       (magit-popup-quit)
+;;       (insert s)))
 
-  (add-hook 'magit-status-sections-hook 'magit-show-keybindings-section :append))
+;;   (add-hook 'magit-status-sections-hook 'magit-show-keybindings-section :append))
 
 (evil-set-initial-state 'pdf-view-mode 'normal)
 
