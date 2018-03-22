@@ -4,3 +4,4 @@
 (package! cmake-ide)
 (package! evil-magit)
 (package! flycheck-pycheckers)
+(package! nix-mode)

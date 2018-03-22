@@ -7,7 +7,6 @@
 
 (load! +bindings)
 
-(print display-pixels-per-inch)
 (if (>= (display-pixel-width) 2560)
     (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22))
   (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 16)))
@@ -86,12 +85,14 @@
       '(("django" . "\\.html\\'")))
 
 (add-hook! 'term-mode-hook 'persp-add-buffer)
-
-(after! multi-term
+(def-package! multi-term
+  :config
+  (setq multi-term-program "zsh")
   (setq-default term-bind-key-alist
                 '(("C-c C-c" . term-interrupt-subjob)
                   ("C-c C-e" . term-send-esc)
                   ("C-y" . term-paste)
+                  ("C-d" . term-send-eof)
                   ("M-w" . yank)
                   ("M-," . term-send-raw))))
 
