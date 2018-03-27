@@ -113,3 +113,5 @@
     (compile (concat "pdflatex " (file-name-nondirectory buffer-file-name))))
   (add-hook 'LaTeX-mode-hook
     '(lambda () (add-hook 'after-save-hook 'azy2/compile-pdf nil 'local))))
+
+(require 'nix-mode)
