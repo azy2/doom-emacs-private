@@ -27,7 +27,7 @@
 ;;
 ;;; License: MIT
 
-(require 'core (concat user-emacs-directory "core/core"))
+;(require 'core (concat user-emacs-directory "core/core"))
 
 (doom! :feature
        (popup            ; tame sudden yet inevitable temporary windows
@@ -35,7 +35,7 @@
         +defaults)       ; default popup rules
       ;debugger          ; FIXME stepping through code, to help you add bugs
        eval              ; run code, run (also, repls)
-       evil              ; come to the dark side, we have cookies
+       (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        (lookup           ; helps you navigate your code and documentation
         +devdocs         ; ...on devdocs.io online
@@ -57,10 +57,11 @@
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-modeline     ; a snazzy Atom-inspired mode-line
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        nav-flash         ; blink the current line after jumping
        evil-goggles      ; display visual hints when editing in evil
+       ;postframe        ; use child frames where possible (Emacs 26+ only)
       ;unicode           ; extended unicode support for various languages
       ;tabbar            ; FIXME an (incomplete) tab bar for Emacs
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
@@ -77,8 +78,9 @@
        make              ; run make tasks from Emacs
        magit
        neotree           ; a project drawer, like NERDTree for vim
-       password-store    ; password manager for nerds
+       ;password-store    ; password manager for nerds
        pdf               ; pdf enhancements
+       rgb               ; creating color strings
        rotate-text       ; cycle region at point between text candidates
        term              ; terminals in Emacs
        tmux              ; an API for interacting with tmux
@@ -105,6 +107,7 @@
        ledger            ; an accounting system in Emacs
        lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
+       nix
        ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system

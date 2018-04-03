@@ -1,5 +1,11 @@
 ;;; private/default/config.el -*- lexical-binding: t; -*-
 
+(when (memq window-system '(mac ns x))
+  (require 'exec-path-from-shell)
+  (setq-default exec-path-from-shell-shell-name "/usr/bin/zsh")
+  (exec-path-from-shell-copy-env "RUST_SRC_PATH")
+  (exec-path-from-shell-initialize))
+
 (define-key key-translation-map (kbd "C-x") (kbd "C-u"))
 (define-key key-translation-map (kbd "C-u") (kbd "C-x"))
 (define-key key-translation-map (kbd "M-x") (kbd "M-u"))
@@ -37,7 +43,7 @@
 (def-package! flycheck-pycheckers
   :after (flycheck)
   :config
-  (setq flycheck-pycheckers-checkers '(mypy3 pep8 flake8 pylint))
+  (setq flycheck-pycheckers-checkers '(pep8 flake8 pylint))
   (setq flycheck-pycheckers-max-line-length 120)
   (setq flycheck-pycheckers-venv-root "~/.pyenv/versions")
   (add-hook! 'flycheck-mode-hook #'flycheck-pycheckers-setup))
@@ -72,14 +78,14 @@
 
 (setq auto-window-vscroll nil)
 
-(after! helm
-  (set! :popup "^\\*helm" :ignore)
-  (setq helm-split-window-inside-p t
-        helm-echo-input-in-header-line t
-        helm-display-header-line t
-        helm-autoresize-min-height 30
-        helm-autoresize-max-height 0)
-  (helm-autoresize-mode t))
+;(after! helm
+;  (set! :popup "^\\*helm" :ignore)
+;  (setq helm-split-window-inside-p t
+;        helm-echo-input-in-header-line t
+;        helm-display-header-line t
+;        helm-autoresize-min-height 30
+;        helm-autoresize-max-height 0)
+;  (helm-autoresize-mode t))
 
 (setq web-mode-engines-alist
       '(("django" . "\\.html\\'")))
@@ -114,4 +120,5 @@
   (add-hook 'LaTeX-mode-hook
     '(lambda () (add-hook 'after-save-hook 'azy2/compile-pdf nil 'local))))
 
-(require 'nix-mode)
+(after! rust-mode
+  (setq rust-format-on-save t))
