@@ -121,4 +121,8 @@
     '(lambda () (add-hook 'after-save-hook 'azy2/compile-pdf nil 'local))))
 
 (after! rust-mode
-  (setq rust-format-on-save t))
+  (setq rust-format-on-save t)
+  (setenv "RUST_TARGET_PATH"
+           "/home/ben/projects/plan8/"))
+
+
