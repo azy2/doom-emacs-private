@@ -16,7 +16,10 @@
 (if (>= (display-pixel-width) 2560)
     (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22))
   (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 16)))
-(setq doom-theme 'doom-one)
+(setq doom-city-lights-brighter-comments t
+      doom-city-lights-comment-bg nil
+      doom-city-lights-brighter-modeline t)
+(setq doom-theme 'doom-city-lights)
 
 (require 'company)
 (setq company-idle-delay 0
@@ -30,11 +33,11 @@
   (require 'rtags)
   (cmake-ide-setup))
 
-(def-package! evil-magit
-  :after magit
-  :config
-  (define-key magit-mode-map (kbd doom-leader-key) nil)
-  (add-hook! 'magit-mode-hook (evil-snipe-mode -1)))
+;; (def-package! evil-magit
+;;   :after magit
+;;   :config
+;;   (define-key magit-mode-map (kbd doom-leader-key) nil)
+;;   (add-hook! 'magit-mode-hook (evil-snipe-mode -1)))
 
 (require 'flycheck)
 (setq flycheck-check-syntax-automatically '(save idle-change mode-enabled)
@@ -122,7 +125,7 @@
 
 (after! rust-mode
   (setq rust-format-on-save t)
-  (setenv "RUST_TARGET_PATH"
-           "/home/ben/projects/plan8/"))
+  (setenv "RUST_TARGET_PATH" "/home/ben/projects/plan8/")
+  (setenv "RUSTFLAGS" "--sysroot /home/ben/.xargo"))
 
 

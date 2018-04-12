@@ -7,7 +7,8 @@
           :desc "Git status" :n "s" #'magit-status
           :desc "Git stage hunk" :n "S" #'git-gutter:stage-hunk)
         (:desc "code" :prefix "c"
-          :desc "Build pdf" :n "p" (lambda! (save-buffer) (shell-command (concat "pdflatex " (file-name-nondirectory buffer-file-name))) (doom/escape))))
+          :desc "Build pdf" :n "p" (lambda! (save-buffer) (shell-command (concat "pdflatex " (file-name-nondirectory buffer-file-name))) (doom/escape)))
+        :desc "Next theme" :n "T" #'+azy2/next-theme)
       (:map emacs-lisp-mode-map
         :ni "C-)" 'sp-forward-slurp-sexp
         :ni "C-(" 'sp-backward-slurp-sexp
